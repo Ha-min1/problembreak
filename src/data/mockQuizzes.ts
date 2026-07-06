@@ -1,0 +1,190 @@
+import { QuizQuestion, Subject } from '../types/quiz';
+
+export const MOCK_SUBJECTS: Subject[] = [
+  {
+    id: 'linear-algebra',
+    name: '선형대수학',
+    description: '행렬, 벡터 공간, 고유값과 고유벡터 및 선형 사상',
+    icon: '📐',
+  },
+  {
+    id: 'engineering-math',
+    name: '공학수학',
+    description: '상미분방정식, 라플라스 변환 및 푸리에 해석',
+    icon: '⚙️',
+  },
+  {
+    id: 'c-cpp',
+    name: 'C/C++ 프로그래밍',
+    description: '포인터, 메모리 관리, OOP 및 템플릿 메타프로그래밍',
+    icon: '💻',
+  },
+];
+
+export const MOCK_QUIZZES: Record<string, QuizQuestion<any, any>[]> = {
+  'linear-algebra': [
+    {
+      id: 'la-1',
+      type: 'MULTIPLE_CHOICE',
+      title: '행렬 $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$의 행렬식(Determinant) $\\det(A)$의 값은?',
+      options: [
+        { id: 'a', value: '-2', label: '$-2$' },
+        { id: 'b', value: '2', label: '$2$' },
+        { id: 'c', value: '-10', label: '$-10$' },
+        { id: 'd', value: '10', label: '$10$' },
+      ],
+      correctAnswer: 'a',
+      explanation: '행렬식 계산 공식 $\\det(A) = ad - bc$에 의해, $1 \\times 4 - 2 \\times 3 = 4 - 6 = -2$ 입니다.',
+    },
+    {
+      id: 'la-2',
+      type: 'SHORT_ANSWER',
+      title: '행렬 $A = \\begin{pmatrix} 3 & 0 \\\\ 0 & 3 \\end{pmatrix}$의 유일한 고유값(Eigenvalue) $\\lambda$를 입력하세요.',
+      correctAnswer: '3',
+      explanation: '대각행렬의 고유값은 대각 성분 그 자체입니다. 특성방정식 $\\det(A - \\lambda I) = (3 - \\lambda)^2 = 0$을 풀면 중근 $\\lambda = 3$을 얻습니다.',
+    },
+    {
+      id: 'la-3',
+      type: 'MULTIPLE_CHOICE',
+      title: '다음 중 선형 사상(Linear Transformation)의 성질로 옳은 것은? (단, $T: V \\to W$)',
+      options: [
+        { id: 'a', value: '1', label: '$T(u + v) = T(u) + T(v)$ 이고 $T(cu) = cT(u)$ 이다.' },
+        { id: 'b', value: '2', label: '$T(u + v) = T(u)T(v)$ 이다.' },
+        { id: 'c', value: '3', label: '$T(cu) = T(c) + T(u)$ 이다.' },
+        { id: 'd', value: '4', label: '$T(0) = 1$ 이다.' },
+      ],
+      correctAnswer: 'a',
+      explanation: '선형 사상의 정의는 가산성(Additivity) $T(u+v) = T(u)+T(v)$와 균질성(Homogeneity) $T(cu) = cT(u)$를 만족하는 사상입니다.',
+    },
+    {
+      id: 'la-4',
+      type: 'FILL_IN_THE_BLANK',
+      title: '차원 정리(Rank-Nullity Theorem)에 따르면, 임의의 $m \\times n$ 행렬 $A$에 대하여 $\\text{rank}(A) + \\text{nullity}(A) = [\\text{빈칸}]$ 입니다. 빈칸에 들어갈 알맞은 변수는?',
+      correctAnswer: 'n',
+      explanation: '정리(Rank-Nullity Theorem)에 의해 선형 사상의 정의역의 차원 $n$(열의 개수)이 $\\text{rank}(A) + \\text{nullity}(A)$와 같습니다.',
+    },
+    {
+      id: 'la-5',
+      type: 'MULTIPLE_CHOICE',
+      title: '두 벡터 $u = (1, 2, 3)$과 $v = (2, -1, 0)$의 내적(Dot Product) $u \\cdot v$의 값은?',
+      options: [
+        { id: 'a', value: '0', label: '$0$ (두 벡터는 직교함)' },
+        { id: 'b', value: '4', label: '$4$' },
+        { id: 'c', value: '1', label: '$1$' },
+        { id: 'd', value: '-1', label: '$-1$' },
+      ],
+      correctAnswer: 'a',
+      explanation: '$u \\cdot v = (1 \\times 2) + (2 \\times -1) + (3 \\times 0) = 2 - 2 + 0 = 0$ 이므로 두 벡터는 직교합니다.',
+    },
+  ],
+  'engineering-math': [
+    {
+      id: 'em-1',
+      type: 'MULTIPLE_CHOICE',
+      title: '일계 미분방정식 $y\' + 2y = 0$의 일반해 $y(x)$는?',
+      options: [
+        { id: 'a', value: '1', label: '$y(x) = Ce^{-2x}$' },
+        { id: 'b', value: '2', label: '$y(x) = Ce^{2x}$' },
+        { id: 'c', value: '3', label: '$y(x) = C \\sin(2x)$' },
+        { id: 'd', value: '4', label: '$y(x) = 2x + C$' },
+      ],
+      correctAnswer: 'a',
+      explanation: '변수분리법을 적용하면 $\\frac{dy}{y} = -2 dx \\implies \\ln|y| = -2x + C\' \\implies y(x) = Ce^{-2x}$ 가 됩니다.',
+    },
+    {
+      id: 'em-2',
+      type: 'SHORT_ANSWER',
+      title: '함수 $f(t) = e^{3t}$의 라플라스 변환 $F(s) = \\mathcal{L}\\{e^{3t}\\}$은 $\\frac{1}{s - a}$ 꼴입니다. 상수 $a$의 값은?',
+      correctAnswer: '3',
+      explanation: '라플라스 변환 공식 $\\mathcal{L}\\{e^{at}\\} = \\frac{1}{s-a}$ ($s > a$)에 따라, $a = 3$ 입니다.',
+    },
+    {
+      id: 'em-3',
+      type: 'MULTIPLE_CHOICE',
+      title: '오일러 공식(Euler\'s formula) $e^{i\\theta}$를 올바르게 나타낸 것은?',
+      options: [
+        { id: 'a', value: '1', label: '$\\cos\\theta + i\\sin\\theta$' },
+        { id: 'b', value: '2', label: '$\\sin\\theta + i\\cos\\theta$' },
+        { id: 'c', value: '3', label: '$\\cos\\theta - i\\sin\\theta$' },
+        { id: 'd', value: '4', label: '$i(\\cos\\theta + \\sin\\theta)$' },
+      ],
+      correctAnswer: 'a',
+      explanation: '오일러 공식에 의해 복소지수함수는 복소평면에서 $e^{i\\theta} = \\cos\\theta + i\\sin\\theta$ 로 나타납니다.',
+    },
+    {
+      id: 'em-4',
+      type: 'FILL_IN_THE_BLANK',
+      title: '이계 선형 동차 미분방정식 $y\'\' + y = 0$의 기본해 집합은 $\\{\\cos x, [\\text{빈칸}]\\}$ 입니다. 빈칸에 들어갈 함수는? (영문 소문자로 입력)',
+      correctAnswer: 'sin x',
+      explanation: '특성방정식 $\\lambda^2 + 1 = 0 \\implies \\lambda = \\pm i$ 이므로, 해는 $y(x) = C_1 \\cos x + C_2 \\sin x$ 입니다. 따라서 빈칸은 sin x (또는 sin(x)) 입니다.',
+    },
+    {
+      id: 'em-5',
+      type: 'MULTIPLE_CHOICE',
+      title: '주기 $2L$을 가진 함수 $f(x)$의 푸리에 급수 전개에서 $a_0$ 계수를 구하는 공식은?',
+      options: [
+        { id: 'a', value: '1', label: '$a_0 = \\frac{1}{2L} \\int_{-L}^{L} f(x) dx$' },
+        { id: 'b', value: '2', label: '$a_0 = \\frac{1}{L} \\int_{-L}^{L} f(x) dx$' },
+        { id: 'c', value: '3', label: '$a_0 = \\int_{-L}^{L} f(x) dx$' },
+        { id: 'd', value: '4', label: '$a_0 = \\frac{2}{L} \\int_{0}^{L} f(x) dx$' },
+      ],
+      correctAnswer: 'b',
+      explanation: '일반적인 푸리에 급수 정의에서 상수항을 $\\frac{a_0}{2}$로 두면, 계수 $a_0 = \\frac{1}{L} \\int_{-L}^{L} f(x) dx$ 가 됩니다.',
+    },
+  ],
+  'c-cpp': [
+    {
+      id: 'cpp-1',
+      type: 'MULTIPLE_CHOICE',
+      title: 'C++에서 dynamic_cast를 안전하게 사용하기 위해 피연산자 클래스가 반드시 가져야 하는 조건은?',
+      options: [
+        { id: 'a', value: '1', label: '최소한 하나 이상의 가상 함수(Virtual Function)를 가진 다형성 클래스여야 한다.' },
+        { id: 'b', value: '2', label: '모든 멤버 변수가 public이어야 한다.' },
+        { id: 'c', value: '3', label: '템플릿 클래스여야 한다.' },
+        { id: 'd', value: '4', label: '기본 생성자가 존재해야 한다.' },
+      ],
+      correctAnswer: 'a',
+      explanation: 'dynamic_cast는 실행 시간 타입 정보(RTTI)를 이용하므로, 가상 함수 테이블(vtable)이 존재하는 다형성(polymorphic) 클래스 구조에서만 다운캐스팅 및 교차캐스팅 검사가 가능합니다.',
+    },
+    {
+      id: 'cpp-2',
+      type: 'SHORT_ANSWER',
+      title: 'C++11부터 도입된, 원시 포인터의 소유권을 독점하여 객체 수명이 다할 때 자동으로 메모리를 해제해 주는 스마트 포인터의 이름은? (std:: 제외, 영문 소문자로 입력)',
+      correctAnswer: 'unique_ptr',
+      explanation: 'std::unique_ptr은 특정 객체의 단독 소유권을 가지며 복사가 불가능하고 이동만 가능한 스마트 포인터입니다.',
+    },
+    {
+      id: 'cpp-3',
+      type: 'MULTIPLE_CHOICE',
+      title: '다음 중 `const int* p;` 선언의 올바른 의미는?',
+      options: [
+        { id: 'a', value: '1', label: 'p가 가리키는 대상의 값(정수)을 변경할 수 없다.' },
+        { id: 'b', value: '2', label: '포인터 p 자체의 주소값을 변경할 수 없다.' },
+        { id: 'c', value: '3', label: 'p가 가리키는 값과 p 자체의 주소값 모두 변경할 수 없다.' },
+        { id: 'd', value: '4', label: '컴파일 에러가 발생한다.' },
+      ],
+      correctAnswer: 'a',
+      explanation: '`const int* p` (혹은 `int const* p`)는 가리키는 대상인 int 값이 상수임을 뜻하며, 포인터 변수 p 자체는 다른 주소를 가리키도록 변경 가능합니다. 반면 `int* const p`는 포인터 자체가 상수입니다.',
+    },
+    {
+      id: 'cpp-4',
+      type: 'FILL_IN_THE_BLANK',
+      title: 'C++에서 가상 소멸자를 선언하지 않았을 때, 기초 클래스 포인터로 유도 클래스 객체를 삭제하면 [\\text{빈칸}] 작동(Undefined Behavior)이 일어날 수 있습니다. 빈칸에 들어갈 단어는?',
+      correctAnswer: '정의되지 않은',
+      explanation: '기초 클래스 포인터로 유도 클래스를 소멸시킬 때 기초 클래스 소멸자에 virtual 키워드가 없으면 유도 클래스의 소멸자가 호출되지 않아 리소스 누수 및 정의되지 않은 작동(Undefined Behavior)이 발생합니다.',
+    },
+    {
+      id: 'cpp-5',
+      type: 'MULTIPLE_CHOICE',
+      title: 'C++의 템플릿 특수화(Template Specialization)를 사용하는 주된 이유는 무엇인가요?',
+      options: [
+        { id: 'a', value: '1', label: '특정 타입에 대해 일반 템플릿과 다르게 특화된 최적화 알고리즘이나 자료구조를 적용하기 위함이다.' },
+        { id: 'b', value: '2', label: '컴파일 속도를 10배 이상 항상 빠르게 만들기 위함이다.' },
+        { id: 'c', value: '3', label: '가상 함수 호출 오버헤드를 동적으로 해결하기 위함이다.' },
+        { id: 'd', value: '4', label: '다중 상속의 다이아몬드 문제를 해결하기 위함이다.' },
+      ],
+      correctAnswer: 'a',
+      explanation: '특정 타입(예: bool 타입에 대해 vector를 비트 단위로 압축)에 대해 기본 템플릿 구현과 다른 최적화 및 커스텀 구현을 제공하고자 할 때 템플릿 특수화를 적용합니다.',
+    },
+  ],
+};
